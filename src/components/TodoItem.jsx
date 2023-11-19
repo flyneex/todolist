@@ -8,6 +8,8 @@ const TodoItem = ({ todo, changeTodo, editTodo, deleteTodo }) => {
 				'flex justify-between items-center mb-5 bg-emerald-500 p-5 rounded-xl text-white',
 				{
 					'line-through': todo.isCompleted,
+					'bg-slate-500': todo.isCompleted,
+					'text-slate-500': todo.isCompleted,
 				}
 			)}
 		>
@@ -17,7 +19,7 @@ const TodoItem = ({ todo, changeTodo, editTodo, deleteTodo }) => {
 					onClick={() => changeTodo(todo._id)}
 				>
 					{/* <Check isCompleted={todo.isCompleted} /> */}
-					<span className='text-left w-60'>{todo.title}</span>
+					<span className='text-left w-96'>{todo.title}</span>
 				</button>
 			</div>
 			<div className='flex'>

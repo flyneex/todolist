@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { CiFaceFrown } from 'react-icons/ci'
+import AddTodo from './AddTodo'
 import Edit from './Edit'
-import Input from './Input'
 import TodoItem from './TodoItem'
 
 const Home = () => {
@@ -14,6 +15,24 @@ const Home = () => {
 	}
 
 	const [todos, setTodos] = useState(getTodos())
+	const [filter, setFilter] = useState(todos)
+
+	useEffect(() => {
+		setFilter(todos)
+	}, [todos])
+
+	const filterTodo = isCompleted => {
+		if (isCompleted === 'all') {
+			setFilter(todos)
+		} else {
+			let newTodo = [...todos].filter(t => t.isCompleted === isCompleted)
+			setFilter(newTodo)
+		}
+	}
+
+	useEffect(() => {
+		localStorage.setItem('todos', JSON.stringify(todos))
+	}, [todos])
 
 	const changeTodo = id => {
 		const copy = [...todos]
@@ -41,29 +60,38 @@ const Home = () => {
 	}
 	// window.addTodo = addTodo
 
-	useEffect(() => {
-		localStorage.setItem('todos', JSON.stringify(todos))
-	}, [todos])
-
 	return (
-		<div className='mt-10 mb-10 p-10 w-1/3 bg-emerald-700 rounded-2xl'>
+		<div className='mt-10 mb-20 p-10 w-1/3 bg-emerald-700 rounded-2xl'>
 			<h1 className='text-center text-4xl mb-10 font-medium text-emerald-500'>
 				Todo List
 			</h1>
-			{todos.map((todo, idx) =>
-				todo.isEditing ? (
-					<Edit key={idx} editTodo={editTask} todo={todo} />
+			<div className='pb-5 flex justify-end text-white gap-4'>
+				<button onClick={() => filterTodo('all')}>All</button>
+				<button onClick={() => filterTodo(true)}>Done</button>
+				<button onClick={() => filterTodo(false)}>Undone</button>
+			</div>
+			<div className='overflow-auto h-3/4'>
+				{todos.length ? (
+					filter.map((todo, idx) =>
+						todo.isEditing ? (
+							<Edit key={idx} editTodo={editTask} todo={todo} />
+						) : (
+							<TodoItem
+								key={idx}
+								todo={todo}
+								changeTodo={changeTodo}
+								editTodo={editTodo}
+								deleteTodo={deleteTodo}
+							/>
+						)
+					)
 				) : (
-					<TodoItem
-						key={idx}
-						todo={todo}
-						changeTodo={changeTodo}
-						editTodo={editTodo}
-						deleteTodo={deleteTodo}
-					/>
-				)
-			)}
-			<Input setTodos={setTodos} />
+					<h3 className='text-white text-2xl text-center mt-7'>
+						You don't have any todos <CiFaceFrown className='flex' />
+					</h3>
+				)}
+			</div>
+			<AddTodo setTodos={setTodos} />
 		</div>
 	)
 }
