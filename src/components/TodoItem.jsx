@@ -19,7 +19,7 @@ const TodoItem = ({ todo, changeTodo, editTodo, deleteTodo }) => {
 					onClick={() => changeTodo(todo._id)}
 				>
 					{/* <Check isCompleted={todo.isCompleted} /> */}
-					<span className='text-left w-96'>{todo.title}</span>
+					<span className='text-left'>{todo.title}</span>
 				</button>
 			</div>
 			<div className='flex'>

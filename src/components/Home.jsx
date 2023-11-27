@@ -61,7 +61,7 @@ const Home = () => {
 	// window.addTodo = addTodo
 
 	return (
-		<div className='mt-10 mb-20 p-10 w-1/3 bg-emerald-700 rounded-2xl'>
+		<div className='relative mt-10 mb-20 p-10 w-3/4 bg-emerald-700 rounded-2xl xs:w-3/4'>
 			<h1 className='text-center text-4xl mb-10 font-medium text-emerald-500'>
 				Todo List
 			</h1>

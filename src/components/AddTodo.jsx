@@ -21,7 +21,7 @@ const AddTodo = ({ setTodos }) => {
 	}
 
 	return (
-		<div className='mt-20 mb-20 absolute -bottom-7 add'>
+		<div className='mt-20 mb-20 w-3/4 absolute -bottom-24'>
 			<input
 				type='text'
 				value={title}
